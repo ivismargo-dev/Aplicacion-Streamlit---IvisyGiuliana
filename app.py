@@ -13,7 +13,7 @@ st.set_page_config(
 st.title("🏥 Establecimientos de Salud en Chile")
 st.write(
     """
-    Aplicación desarrollada en **Python y Streamlit** que analiza la distribución
+    Aplicación desarrollada por Ivis Martinez y Giuliana Provoste, en **Python y Streamlit** que analiza la distribución
     territorial de los establecimientos de salud en Chile, usando datos oficiales
     del portal **datos.gob.cl**.
     """
@@ -283,3 +283,4 @@ st.markdown(
     de servicios.
     """
 )
+
