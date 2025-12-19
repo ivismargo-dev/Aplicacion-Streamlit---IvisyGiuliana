@@ -170,24 +170,43 @@ st.altair_chart(grafico_nacional, use_container_width=True)
 st.divider()
 
 # --------------------------------------------------
-# 10) Análisis Regional por tipo
+# 🏥 ANÁLISIS REGIONAL
 # --------------------------------------------------
 st.header("🏥 Análisis Regional")
+
+st.markdown(
+    """
+    Distribución de los **principales tipos de establecimientos de salud**
+    en la región seleccionada.  
+    Se muestran únicamente los **tipos con mayor presencia**, para facilitar
+    la interpretación visual.
+    """
+)
 
 conteo_tipo = (
     df_region.groupby(col_estab_nom)
     .size()
     .sort_values(ascending=False)
+    .head(10)  # Top 10 tipos
     .reset_index()
 )
+
 conteo_tipo.columns = ["Tipo de establecimiento", "Cantidad"]
 
+# Gráfico horizontal
 grafico_tipo = (
     alt.Chart(conteo_tipo)
     .mark_bar()
     .encode(
-        x=alt.X("Tipo de establecimiento:N", sort="-y", axis=alt.Axis(labelAngle=-45, title="Tipo")),
-        y=alt.Y("Cantidad:Q", axis=alt.Axis(title="Número de establecimientos")),
+        y=alt.Y(
+            "Tipo de establecimiento:N",
+            sort="-x",
+            axis=alt.Axis(title="Tipo de establecimiento")
+        ),
+        x=alt.X(
+            "Cantidad:Q",
+            axis=alt.Axis(title="Número de establecimientos")
+        ),
         tooltip=["Tipo de establecimiento", "Cantidad"]
     )
     .properties(height=400)
